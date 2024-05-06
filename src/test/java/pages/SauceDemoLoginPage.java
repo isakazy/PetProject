@@ -20,4 +20,7 @@ public class SauceDemoLoginPage {
 
     @FindBy(xpath = "//input[@id='login-button']")
     public WebElement sauceDemoLoginButton;
+
+    @FindBy(xpath = "//h3[.='Epic sadface: Username and password do not match any user in this service']")
+    public WebElement errorMessage;
 }

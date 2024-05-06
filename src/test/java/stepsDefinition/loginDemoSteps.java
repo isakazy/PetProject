@@ -1,5 +1,4 @@
 package stepsDefinition;
-
 import io.cucumber.java.en.*;
 import org.junit.Assert;
 import pages.SauceDemoLoginPage;
@@ -39,25 +38,25 @@ public class loginDemoSteps {
     @Then("verify user successfully logged in")
     public void verify_user_successfully_logged_in() {
         Assert.assertEquals(Config.getValue("sauceDemoProductPage"), Driver.getDriver().getCurrentUrl());
-        Driver.getDriver().close();
-        Driver.getDriver().quit();
 
     }
 
     @When("user provides a invalid username")
     public void user_provides_a_invalid_username() {
-
+        sauceDemoLoginPage.sauceDemoUsernameInputField.sendKeys("whatever");
 
     }
     @When("user provides invalid password")
     public void user_provides_invalid_password() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    sauceDemoLoginPage.sauceDemoPasswordInputField.sendKeys("whatever");
+
+
     }
     @Then("verify user sees an error message")
     public void verify_user_sees_an_error_message() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+     Assert.assertTrue(sauceDemoLoginPage.errorMessage.isDisplayed());
+
+
     }
 
 
