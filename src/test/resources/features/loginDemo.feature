@@ -16,3 +16,4 @@ Scenario: user logs in with invalid credentials
   And user provides invalid password
   And user clicks on login button
   Then verify user sees an error message
+

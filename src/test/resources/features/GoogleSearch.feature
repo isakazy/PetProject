@@ -1,6 +1,7 @@
 Feature: feature to test google search functionality
 
 
+
   @google
   Scenario: google search is working
     Given browser is open
