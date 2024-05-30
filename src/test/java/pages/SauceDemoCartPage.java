@@ -22,4 +22,19 @@ public class SauceDemoCartPage {
     public WebElement checkOutButton;
 
 
+    public static void main(String[] args) {
+        // see if string anagram;
+        String str = "civic";
+        String reversed = "";
+        for(int i = 0; i < str.length(); i ++ ){
+            reversed += str.charAt(i);
+        }
+        if(reversed.equalsIgnoreCase(str)){
+            System.out.println("they are equal ");
+        }
+        else{
+            System.out.println("they are different ");
+        }
+
+    }
 }
