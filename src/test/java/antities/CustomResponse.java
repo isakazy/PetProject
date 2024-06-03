@@ -1,4 +1,4 @@
-package api;
+package antities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -14,7 +14,8 @@ public class CustomResponse {
     private String seller_name;
     private int seller_id;
     private String email;
-
+    private String first_name;
     List<CustomResponse> responses;
+    private String responseBody;
 
 }

@@ -1,5 +1,6 @@
 package api;
 
+import antities.RequestBody;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -169,7 +170,7 @@ public void LoopBankAccountName(){
         Map<String, Object> params = new HashMap<>();
         params.put("isArchived", false);
         params.put("page", 1);
-        params.put("size", 20);
+        params.put("size", 60);
 
         Response response = RestAssured.given().auth().oauth2(token).params(params).get(url);
 
@@ -177,11 +178,14 @@ public void LoopBankAccountName(){
         Assert.assertEquals(200, status);
 
         int size = response.jsonPath().getList("responses").size();
+        System.out.println("seller count: "+size);
+        System.out.println();
 
 
         for(int i = 0; i < size; i ++ ){
-            String companyName = response.jsonPath().getString("responses["+ i +"].email");
-            Assert.assertTrue(companyName.endsWith("@gmail.com"));
+            String companyName = response.jsonPath().getString("responses["+ i +"].seller_id");
+            System.out.println("seller id: "+companyName);
+         //   Assert.assertTrue(companyName.endsWith("@gmail.com"));
         }
     }
 

@@ -1,14 +1,9 @@
 package utilities;
 
-import api.RequestBody;
+import antities.RequestBody;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class CashWiseAuthorization {
     public static String getToken(){
