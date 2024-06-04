@@ -17,5 +17,5 @@ public class CustomResponse {
     private String first_name;
     List<CustomResponse> responses;
     private String responseBody;
-
+    private String company_name;
 }

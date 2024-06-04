@@ -1,4 +1,4 @@
-package runner;
+package utilities;
 
 import antities.CustomResponse;
 import antities.RequestBody;
@@ -9,8 +9,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.Data;
 import lombok.Getter;
-import utilities.CashWiseAuthorization;
-import utilities.Config;
 
 import java.util.Map;
 
@@ -25,7 +23,7 @@ public class ApiRunner {
         String token = CashWiseAuthorization.getToken();
         String url = Config.getValue("cashwiseApiUrl") + path;
 
-        Response response = RestAssured.given().auth().oauth2(token).contentType(ContentType.JSON).get(url);
+        Response response = RestAssured.given().auth().oauth2(token).get(url);
         System.out.println("Status code: "+ response.statusCode());
 
         ObjectMapper mapper = new ObjectMapper();
@@ -42,7 +40,7 @@ public class ApiRunner {
         String token = CashWiseAuthorization.getToken();
         String url = Config.getValue("cashwiseApiUrl") + path;
 
-        Response response = RestAssured.given().auth().oauth2(token).params(params).contentType(ContentType.JSON).get(url);
+        Response response = RestAssured.given().auth().oauth2(token).params(params).get(url);
         System.out.println("Status code: " + response.statusCode());
 
         ObjectMapper mapper = new ObjectMapper();
@@ -71,6 +69,22 @@ public class ApiRunner {
             System.out.println("probably a List of Objects");
         }
 
+    }
+
+    public static void runDELETE(String path ){
+        String token = CashWiseAuthorization.getToken();
+        String url = Config.getValue("cashwiseApiUrl") + path;
+
+        Response response = RestAssured.given().auth().oauth2(token).delete(url);
+        System.out.println("Status code: "+ response.statusCode());
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            customResponse = mapper.readValue(response.asString(), CustomResponse.class);
+            customResponse.setResponseBody(response.asString());
+        } catch (JsonProcessingException e) {
+            System.out.println("probably a List of Objects");
+        }
     }
 
 }

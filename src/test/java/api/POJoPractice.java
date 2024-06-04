@@ -7,11 +7,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.internal.proxy.RestAssuredProxySelector;
 import io.restassured.response.Response;
 import org.junit.Assert;
 import org.junit.Test;
-import runner.ApiRunner;
+import utilities.ApiRunner;
 import utilities.CashWiseAuthorization;
 import utilities.Config;
 
@@ -177,7 +176,6 @@ public class POJoPractice {
 
         for (int i = 0; i < size; i++) {
             String email = customResponse.getResponses().get(i).getEmail();
-
             Assert.assertFalse(email.isEmpty());
         }
     }
@@ -192,22 +190,25 @@ public class POJoPractice {
         params.put("page", 1);
         params.put("size", 50);
 
-        Response response = RestAssured.given().auth().oauth2(token).contentType(ContentType.JSON)
-                .body(params).post(url);
+        Response response = RestAssured.given().auth().oauth2(token)
+                .params(params).get(url);
+
         int status = response.statusCode();
-        Assert.assertEquals(201, status);
+        Assert.assertEquals(200, status);
 
         ObjectMapper mapper = new ObjectMapper();
         CustomResponse customResponse = mapper.readValue(response.asString(), CustomResponse.class);
 
 
         int size = customResponse.getResponses().size();
+        System.out.println(size);
+
+        String urlToArchive = Config.getValue("cashwiseApiUrl") + "/api/myaccount/sellers/archive/unarchive";
 
         for (int i = 0; i < size; i++) {
             if (customResponse.getResponses().get(i).getEmail().endsWith("@hotmail.com")) {
-
                 int id = customResponse.getResponses().get(i).getSeller_id();
-                String urlToArchive = Config.getValue("cashwiseApiUrl") + "api/myaccount/sellers/archive/unarchive";
+
                 Map<String, Object> paramsToArchive = new HashMap<>();
                 paramsToArchive.put("sellersIdForArchive", id);
                 paramsToArchive.put("Archive", true);
@@ -221,17 +222,6 @@ public class POJoPractice {
     //bug - archive same seller twice, then get a non-existing seller - > attempt to archive a non-existing seller
     //bug - create a seller without email, and create a seller without phone number, create seller without anything and
     //verify in the ui and status code
-
-
-    @Test
-    public void TestUtil() {
-        String endPoint = "/api/users/2";
-        ApiRunner.runGet(endPoint);
-        String email = ApiRunner.getCustomResponse().getEmail();
-        String firstName = ApiRunner.getCustomResponse().getFirst_name();
-        System.out.println(firstName);
-
-    }
 
 
     // archive a user
