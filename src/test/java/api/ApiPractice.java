@@ -185,7 +185,7 @@ public void LoopBankAccountName(){
         for(int i = 0; i < size; i ++ ){
             String companyName = response.jsonPath().getString("responses["+ i +"].seller_id");
             System.out.println("seller id: "+companyName);
-         //   Assert.assertTrue(companyName.endsWith("@gmail.com"));
+            Assert.assertTrue(companyName.endsWith("@gmail.com"));
         }
     }
 
@@ -195,11 +195,4 @@ public void LoopBankAccountName(){
 
 
 
-
-
-
 }
-
-/*
-
- */

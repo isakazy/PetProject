@@ -265,4 +265,16 @@ public class POJoPractice {
         Assert.assertEquals(201, response.statusCode());
     }
 
+    @Test
+    public void testGET(){
+        ApiRunner.runGet("/api/myaccount/sellers/" + 4300);
+        String companyName = ApiRunner.getCustomResponse().getCompany_name();
+        String sellerName = ApiRunner.getCustomResponse().getSeller_name();
+        String email = ApiRunner.getCustomResponse().getEmail();
+
+        Assert.assertFalse(companyName.isEmpty());
+        Assert.assertFalse(sellerName.isEmpty());
+        Assert.assertFalse(email.isEmpty());
+    }
+
 }
