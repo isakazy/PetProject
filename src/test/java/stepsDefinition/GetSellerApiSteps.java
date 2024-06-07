@@ -13,15 +13,17 @@ public class GetSellerApiSteps {
 
     @Given("get single seller api is hit {string}")
     public void get_single_seller_api_is_hit(String endPoint) {
-        ApiRunner.runGet(endPoint);
+        ApiRunner.runGet(endPoint + 4301) ;
 
     }
-    @Then("verify the status code is {int}")
-    public void verify_the_status_code_is(Integer statusCode) {
-
+    @Then("verify the seller email is not empty")
+    public void verify_the_seller_email_is_not_empty() {
+        String email = ApiRunner.getCustomResponse().getEmail();
+        Assert.assertFalse(email.isEmpty());
     }
+
     @Then("verify seller name is {string}")
-    public void verify_seller_name_is(String string) {
+    public void verify_seller_name_is(String isakazy) {
 
     }
 }
