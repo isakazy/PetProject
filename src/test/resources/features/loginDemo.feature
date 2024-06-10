@@ -1,6 +1,6 @@
 Feature: test log in functionality
 
-  @loginDemo
+  @loginDemo @regression
   Scenario: check log in is successful with valid credentials
     Given user is on sauce demo login page
     When user provides a valid username
@@ -9,7 +9,7 @@ Feature: test log in functionality
     Then verify user successfully logged in
 
 
-@loginInvalid
+@loginInvalid @regression
 Scenario: user logs in with invalid credentials
   Given user is on sauce demo login page
   When user provides a invalid username

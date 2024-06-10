@@ -170,9 +170,10 @@ public void LoopBankAccountName(){
         Map<String, Object> params = new HashMap<>();
         params.put("isArchived", false);
         params.put("page", 1);
-        params.put("size", 60);
+        params.put("size", 100);
 
         Response response = RestAssured.given().auth().oauth2(token).params(params).get(url);
+        response.prettyPrint();
 
         int status = response.statusCode();
         Assert.assertEquals(200, status);

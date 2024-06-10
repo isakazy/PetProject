@@ -18,4 +18,5 @@ public class CustomResponse {
     List<CustomResponse> responses;
     private String responseBody;
     private String company_name;
+
 }

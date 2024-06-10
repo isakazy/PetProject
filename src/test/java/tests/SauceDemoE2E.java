@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.junit.Test;
 import pages.*;
+import utilities.ApiRunner;
 import utilities.Config;
 import utilities.Driver;
 
@@ -87,4 +88,6 @@ public class SauceDemoE2E {
 
 
     }
+
+
 }

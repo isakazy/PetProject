@@ -19,6 +19,7 @@ public class ApiRunner {
     @Getter
     private static  CustomResponse customResponse;
 
+    // get API, get without parameters
     public static void runGet(String path ){
         String token = CashWiseAuthorization.getToken();
         String url = Config.getValue("cashwiseApiUrl") + path;
@@ -36,6 +37,7 @@ public class ApiRunner {
     }
 
 
+    // get API, Get with Parameters
     public static void runGet(String path, Map<String, Object> params) {
         String token = CashWiseAuthorization.getToken();
         String url = Config.getValue("cashwiseApiUrl") + path;
@@ -53,6 +55,8 @@ public class ApiRunner {
 
     }
 
+
+    // post API, Post with request body
     public static void runPost(String path, RequestBody requestBody){
         String token = CashWiseAuthorization.getToken();
         String url = Config.getValue("cashwiseApiUrl") + path;
@@ -71,6 +75,29 @@ public class ApiRunner {
 
     }
 
+// post API, post with parameters
+    public static void runPost(String path, Map<String, Object> params ){
+        String token = CashWiseAuthorization.getToken();
+        String url = Config.getValue("cashwiseApiUrl") + path;
+
+        Response response = RestAssured.given().auth().oauth2(token).params(params).post(url);
+        System.out.println("Status code: " + response.statusCode());
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            customResponse = mapper.readValue(response.asString(), CustomResponse.class);
+            customResponse.setResponseBody(response.asString());
+        } catch (JsonProcessingException e) {
+            System.out.println("probably a List of Objects");
+        }
+
+    }
+
+
+
+
+
+// delete API, delete NO params, no Request Body
     public static void runDELETE(String path ){
         String token = CashWiseAuthorization.getToken();
         String url = Config.getValue("cashwiseApiUrl") + path;
@@ -85,6 +112,27 @@ public class ApiRunner {
         } catch (JsonProcessingException e) {
             System.out.println("probably a List of Objects");
         }
+    }
+
+
+
+    //put API, Put with Request Body
+    public static void runPut(String path, RequestBody requestBody){
+        String token = CashWiseAuthorization.getToken();
+        String url = Config.getValue("cashwiseApiUrl") + path;
+
+        Response response = RestAssured.given().auth().oauth2(token).contentType(ContentType.JSON)
+                .body(requestBody).put(url);
+        System.out.println("Status code: " + response.statusCode());
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            customResponse = mapper.readValue(response.asString(), CustomResponse.class);
+            customResponse.setResponseBody(response.asString());
+        } catch (JsonProcessingException e) {
+            System.out.println("probably a List of Objects");
+        }
+
     }
 
 }
